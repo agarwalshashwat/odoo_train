@@ -28,5 +28,50 @@
                 </t>
             </t>
         </template>
+
+        <record id="student_idcard" model="ir.actions.report">
+            <field name="name">Student ID Card</field>
+            <field name="model">school.student</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">school.student_idcard_template</field>
+            <field name="report_file">school.student_idcard_template</field>
+            <field name="print_report_name">"%s ID Card" %(object.name)</field>
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="model_school_student"/>
+        </record>
+
+        <template id="student_idcard_template" name="Student ID Card Template">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <div class="oe_structure">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <table class="table table-condensed" style="border: 2px solid black !important;">
+                                        <tr>
+                                           <td width="40%">
+                                               <p style="text-align:center;padding-top:10px;">
+                                                    <img t-if="not o.image" t-att-src="'web/static/src/img/placeholder.png'" height="140" border="1" width="120"/>
+                                                    <img t-if="o.image" t-field="o.image" height="140" border="1" width="120"/>
+                                               </p>
+                                           </td>
+                                           <td width="60%">
+                                               <table>
+                                                    <tr>
+                                                        <td colspan="3" class="text-center">
+                                                            <span t-field="o.name"/>
+                                                        </td>
+                                                    </tr>
+                                               </table>
+                                           </td> 
+                                        </tr>        
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
     </data>
 </odoo>
