@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record id="school_access" model="ir.module.category">
+            <field name="name">School Groups</field>
+            <field name="description">This category holds the access permission for different roles in this category</field>
+        </record>
+        <record id="school_student_access" model="res.groups">
+            <field name="name">Student</field>
+            <field name="comment">This group holds the student permissions</field>
+            <field name="category_id" ref="school_access"/>
+        </record>
+        <!-- <record id="school_student_access_rule" model="ir.rule">
+            <field name="name">Student Rule</field>
+            <field name="model_id" ref="model_school_student"/>
+            <field name="domain_force">[("student_id","=",user,student_id.id)]</field>
+            <field name="groups" eval="[(4, ref('school_student_access'))]" />
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record> -->
+        <record id="school_teacher_access" model="res.groups">
+            <field name="name">Teacher</field>
+            <field name="comment">This group holds the teacher permissions</field>
+            <field name="category_id" ref="school_access"/>
+            <field name="implied_ids" eval="[(4, ref('school.school_student_access'))]"/>
+        </record>
+        <record id="school_principal_access" model="res.groups">
+            <field name="name">Principal</field>
+            <field name="comment">This group holds the principal permissions</field>
+            <field name="category_id" ref="school_access"/>
+            <field name="implied_ids" eval="[(4, ref('school.school_teacher_access'))]"/>
+        </record>
+    </data>
+</odoo>

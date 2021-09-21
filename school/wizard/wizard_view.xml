@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="school_fee_wizard_form_view" model="ir.ui.view">
+            <field name="name">school.fee.wizard.form.view</field>
+            <field name="model">school.fee.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="curr_payment"/>
+                        </group>
+                        <group>
+                            <field name="curr_time"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_payment_register" string="Submit" type="object" class="btn btn-success"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_school_fee_wizard" model="ir.actions.act_window">
+            <field name="name">Register Payment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">school.fee.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="offer_data1" model="estate.model.desc">
+            <field name="name">Swimming Pool</field>
+        </record>
+        <record id="offer_data2" model="estate.model.desc">
+            <field name="name">Rural</field>
+        </record>
+        <record id="offer_data3" model="estate.model.desc">
+            <field name="name">Urban</field>
+        </record>
+        <record id="offer_data4" model="estate.model.desc">
+            <field name="name">Metro</field>
+        </record>
+        <record id="offer_data5" model="estate.model.desc">
+            <field name="name">Shopping Mall</field>
+        </record>
+    </data>
+</odoo>

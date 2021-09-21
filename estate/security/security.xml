@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="estate_application" model="ir.module.category">
+            <field name="name">Estate Category</field>
+            <field name="description">This module holds categories</field>
+        </record>
+        <record id="estate_user_group" model="res.groups">
+            <field name="name">Estate User</field>
+            <field name="comment">This group authenticates users permissions</field>
+            <field name="category_id" ref="estate_application"/>
+        </record>
+        <record id="estate_admin_group" model="res.groups">
+            <field name="name">Estate Administrator</field>
+            <field name="comment">This group gives all permission. Beware!</field>
+            <field name="category_id" ref="estate_application"/>
+            <field name="implied_ids" eval="[(4, ref('estate.estate_user_group'))]"/>
+        </record>
+    </data>
+</odoo>

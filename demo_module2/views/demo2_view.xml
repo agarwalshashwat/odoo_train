@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="demo_model_inherit_form_view" model="ir.ui.view">
+            <field name="name">demo.model.inherited.form.view</field>
+            <field name="model">demo.model</field>
+            <field name="inherit_id" ref="demo_module.demo_model_form_view"/>
+            <field name="arch" type="xml">
+                <!-- <field name="name1" position="after">
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                </field> -->
+
+                <xpath expr="//field[@name='name1']" position="after">
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                </xpath>
+                <xpath expr="//sheet" position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="demo_model_inherit_tree_view" model="ir.ui.view">
+            <field name="name">demo.model.inherited.tree.view</field>
+            <field name="model">demo.model</field>
+            <field name="inherit_id" ref="demo_module.demo_model_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="name1" position="after">
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                </field>
+            </field>
+        </record>
+
+        
+    </data>
+</odoo>

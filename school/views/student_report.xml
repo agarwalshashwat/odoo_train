@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <record id="student_report" model="ir.actions.report">
+            <field name="name">Student Report</field>
+            <field name="model">school.student</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">school.student_report_template</field>
+            <field name="report_file">school.student_report_template</field>
+            <field name="print_report_name">"Student Report %s" %(object.name)</field>
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="model_school_student"/>
+        </record>
+        
+        <template id="student_report_template" name="Student Report Template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <t t-set="abcd" t-value="o.returndata()" />
+                            <t t-esc="abcd" />
+                            <h4>Student Report</h4>
+                            <ul>
+                                <li>Name: <span t-field="o.name"/></li>
+                                <li>Gender: <span t-field="o.gender"/></li>
+                            </ul>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

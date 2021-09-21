@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record id='estate_wizard_form_view' model="ir.ui.view">
+            <field name="name">estate.wizard.form.view</field>
+            <field name="model">estate.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="reason"/>
+                    </group>
+                    <footer>
+                        <button name="action_cancel" string="Remove from sale" class="btn-danger" type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_estate_wizard" model="ir.actions.act_window">
+            <field name="name">Cancel Reason</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">estate.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

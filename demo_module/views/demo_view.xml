@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="demo_model_form_view" model="ir.ui.view">
+            <field name="name">demo.model.form.view</field>
+            <field name="model">demo.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_pending" string="Set to Pending" type="object" states="draft,approved,canceled"/>
+                        <button name="action_approved" string="Set to Approved" type="object" states="draft,pending,canceled"/>
+                        <button name="action_canceled" string="Set to Canceled" type="object" states="draft,approved,pending"/>
+                        <button name="action_draft" string="Set to Draft" type="object" states="pending,approved,canceled"/>
+
+                        <button name="add_skill" type="object" string="Add Skill" class="btn-success"/>
+                        <button name="search_skill" type="object" string="Search Skill" class="btn-warning"/>
+                        <button name="update_skill" type="object" string="Update Skill" class="btn-danger"/>
+                        <button name="unlink_skill" type="object" string="Unlink Skill" class="btn-danger"/>
+ 
+                        <!-- <button name="action_pending" string="Set to Pending" type="object" attrs="{'invisible': [('state', '=', 'pending')]}"/>
+                        <button name="action_approved" string="Set to Approved" type="object" attrs="{'invisible': [('state', '=', 'approved')]}"/>
+                        <button name="action_canceled" string="Set to Canceled" type="object" attrs="{'invisible': [('state', '=', 'canceled')]}"/>
+                        <button name="action_draft" string="Set to Draft" type="object" attrs="{'invisible': [('state', '=', 'draft')]}"/> -->
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name1"/>
+                                <field name="partner_id"/>
+                                <field name="email" widget="email"/>
+                                <field name="gender" help="gender help."/>
+                                <field name="new_gender" attrs="{'invisible': [('state', '!=', 'pending')]}"/>
+                                <field name="is_boolean"/>
+                                <field name="age" attrs="{'readonly': [('state', '=', 'approved')], 'required': [('state', '=', 'pending')]}"/>
+                                <field name="weight"/>
+                                <field name="html_field"/>
+                            </group>
+                            <group>
+                                <field name="image" widget="image"/>
+                                <field name="description" required="1"/>
+                                <field name="char_count"/>
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <label for="skill_ids"/>
+                        <field name="skill_ids"/>
+
+                        <label for="tag_ids"/>
+                        <field name="tag_ids" widget="many2many_tags"/>
+
+                        <notebook>
+                            <page string="Tab1">
+                                <field name="skill_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="model_id_db"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Tab2">
+                                <group>
+                                    <field name="tab2_field"/>
+                                </group>
+                            </page>
+                            <page string="Tab3">
+                                <group>
+                                    <field name="tab3_field"/>
+                                </group>
+                            </page>
+                            <page string="Tab4">
+                                <group>
+                                    <field name="tab4_field"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="demo_model_tree_view" model="ir.ui.view">
+            <field name="name">demo.model.tree.view</field>
+            <field name="model">demo.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name1"/>
+                    <field name="gender"/>
+                    <field name="new_gender"/>
+                    <field name="is_boolean"/>
+                    <field name="description"/>
+                    <field name="char_count"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="demo_model_kanban_view" model="ir.ui.view">
+            <field name="name">demo.model.kanban.view</field>
+            <field name="model">demo.model</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name1"/>
+                    <field name="gender"/>
+                    <field name="is_boolean"/>
+                    <field name="description"/>
+                    <field name="age"/>
+                    <field name="weight"/>
+                    <field name="html_field"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <ul>
+                                    <li>
+                                        Name: <field name="name1"/>
+                                    </li>
+                                    <li>
+                                        Gender: <field name="gender"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="demo_model_search_view" model="ir.ui.view">
+            <field name="name">demo.model.search.view</field>
+            <field name="model">demo.model</field>
+            <field name="arch" type="xml">
+                <search>
+                    <!-- Text search -->
+                    <field name="name1"/>
+                    <field name="gender"/>
+                    <field name="description"/>
+
+                    <!-- Filters -->
+                    <filter string="Male" name="gender_male" domain="[('gender', '=', 'male')]"/>
+                    <filter string="Female" name="gender_female" domain="[('gender', '=', 'female')]"/>
+
+                    <!-- Group by -->
+                    <group expand="0" string="Group By">
+                        <filter string="Gender" name="group_by_gender" context="{'group_by': 'gender'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_demo_model" model="ir.actions.act_window">
+            <field name="name">Demo Models</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">demo.model</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{'search_default_group_by_gender': 1, 'search_default_gender_male': 1}</field>
+        </record>
+
+        <record id="action_demo_model_male" model="ir.actions.act_window">
+            <field name="name">Male</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">demo.model</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('gender', '=', 'male')]</field>
+        </record>
+
+        <record id="action_demo_model_female" model="ir.actions.act_window">
+            <field name="name">Female</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">demo.model</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('gender', '=', 'female')]</field>
+        </record>
+
+        <record id="action_demo_model_skill" model="ir.actions.act_window">
+            <field name="name">Skills</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">demo.model.skill</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="demo_model_menu" name="New Demo Menu"/>
+            <menuitem id="demo_model_sub_menu1" parent="demo_model_menu" action="action_demo_model" name="Sub Menu1"/>
+            <menuitem id="demo_model_sub_menu_male" parent="demo_model_menu" action="action_demo_model_male" name="Male"/>
+            <menuitem id="demo_model_sub_menu_female" parent="demo_model_menu" action="action_demo_model_female" name="Female"/>
+
+            <menuitem id="demo_modle_skill_menu" parent="demo_model_menu" action="action_demo_model_skill" name="Skills"/>
+
+    </data>
+</odoo>

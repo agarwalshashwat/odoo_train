@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <record id="property_model_inherit_form_view" model="ir.ui.view" >
+            <field name="name">property.model.inherit.form.view</field>
+            <field name="model">estate.model</field>
+            <field name="inherit_id" ref="estate.estate_model_form_view" />
+            <field name="arch" type="xml">
+                <field name="ptype" position="after">
+                    <field name="pdate"/>
+                    <field name="padd"/>
+                </field>
+
+                <!-- <xpath expr="//field[@name='ptype']" position="after">
+                    <field name="pdate"/>
+                    <field name="padd"/>                                      
+                </xpath> -->
+            </field>        
+        </record>
+
+        <record id="property_model_inherit_tree_view" model="ir.ui.view" >
+            <field name="name">property.model.inherit.tree.view</field>
+            <field name="model">estate.model</field>
+            <field name="inherit_id" ref="estate.estate_model_tree_view" />
+            <field name="arch" type="xml">
+                <field name="ptype" position="after">
+                    <field name="padd"/>
+                    <field name="pdate"/>
+                </field>
+            </field>        
+        </record>
+    </data>    
+</odoo>

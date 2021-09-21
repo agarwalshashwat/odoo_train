@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record id="offer_demo1" model="estate.offers">
+            <field name="buy_fetch" ref="estate.property_demo1"/>
+            <field name="offer">566021233</field>
+            <field name="state">Accepted</field>
+        </record>
+        <record id="offer_demo2" model="estate.offers">
+            <field name="buy_fetch" ref="estate.property_demo1"/>
+            <field name="offer">36345633</field>
+            <field name="state">Negotiating</field>
+        </record>
+        <record id="offer_demo3" model="estate.offers">
+            <field name="buy_fetch" ref="property_demo2"/>
+            <field name="offer">75431233</field>
+            <field name="state">Accepted</field>
+        </record>
+        <record id="offer_demo4" model="estate.offers">
+            <field name="buy_fetch" ref="property_demo2"/>
+            <field name="offer">23453123</field>
+            <field name="state">Refused</field>
+        </record>
+    </data>
+</odoo>

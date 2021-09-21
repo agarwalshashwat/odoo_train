@@ -1,0 +1,75 @@
+<odoo>
+    <data>
+        <record id="demo_model_form_view" model="ir.ui.view">
+            <field name="name">demo.modal.form.view</field>
+            <field name="model">demo.modal</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="fname"/>
+                                <field name="lname"/>   
+                                <field name="is_boolean"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="gender"/>
+                                <field name="image" widget="image"/>
+                                <field name="address"/>
+                                <field name="add_count"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="demo_model_tree_view" model="ir.ui.view">
+            <field name="name">demo.modal.tree.view</field>
+            <field name="model">demo.modal</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="fname"/>
+                    <field name="lname"/>
+                    <field name="gender"/>
+                    <field name="is_boolean"/>
+                    <field name="image"/>
+                    <field name="address"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="demo_model_search_view" model="ir.ui.view">
+            <field name="name">demo.modal.search.view</field>
+            <field name="model">demo.modal</field>
+            <field name="arch" type="xml">
+                <search>
+                    <!-- Text Search -->
+                    <field name="fname"/>
+                    <field name="lname"/>
+                    <field name="gender"/>
+                    <field name="address"/>
+                    <field name="description"/>
+
+                    <!-- Filters -->
+                    <filter string="Male" name="gender_male" domain="[('gender','=','male')]"/>
+                    <filter string="Female" name="gender_female" domain="[('gender','=','female')]"/>
+                    
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_demo_model" model="ir.actions.act_window">
+            <field name="name">Demo Model</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">demo.modal</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="demo_model_menu" name="New Demo Menu"/>
+            <menuitem id="demo_model_sub_menu1" parent="demo_model_menu" action="action_demo_model" name="Sub Menu1"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record id="property_demo1" model="estate.model">
+            <field name="title">Ganga Nagar</field>
+            <field name="ptype">Condo</field>
+            <field name="pcode">566021</field>
+            <field name="exp">123454321</field>
+            <field name="fasc">True</field>
+        </record>
+        <record id="property_demo2" model="estate.model">
+            <field name="title">Anukampa</field>
+            <field name="ptype">Apartment</field>
+            <field name="pcode">566542</field>
+            <field name="exp">12365431</field>
+            <field name="fasc">False</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,254 @@
+<odoo>
+    <data>
+        <record id="estate_model_form_view" model="ir.ui.view">
+            <field name="name">estate.model.form.view</field>
+            <field name="model">estate.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_nfs" string="Not for sale" type="object" states='sold,offer_accepted,offer_received' class="btn btn-light"/>
+                        <button name="action_offer_received" string="Offer Received" type="object" states='sold,offer_accepted,nfs' class="btn btn-light"/>
+                        <button name="action_offer_accepted" string="Offer Accepted" type="object" states='offer_received,sold,nfs' class="btn btn-light"/>
+                        <button name="action_sold" string="Sold" type="object" states='offer_received,offer_accepted,nfs' class="btn btn-light"/>
+                        
+                        <button name="add_profile" type="object" string="Add Profile" class="btn-success"/>
+                        <button name="update_profile" type="object" string="Update Profile" class="btn-warning"/> 
+                        <button name='delete_profile' type='object' string="Delete Profile" class="btn-danger"/>
+                        <field name='state' widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="title"/>
+                            <field name="estate_desc_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="id"/>
+                                <field name="ptype"/>   
+                                <field name="pcode"/>
+                                <field name="availfr" attrs="{'invisible':[('state','=','sold')]}" />
+                                <field name="soldon" attrs="{'invisible':[('state','!=','sold')]}" />
+                            </group>
+                            <group>
+                                <field name="exp" attrs="{'invisible':[('state','=','nfs')]}"/>
+                                <field name="best" attrs="{'invisible':[('state','=','nfs')]}"/>
+                                <field name="sp" attrs="{'invisible':[('state','!=','sold')]}"/>
+                                <field name="nfs_reason" attrs="{'invisible':[('state','!=','nfs')],'readonly': [('state','=','nfs')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <group>
+                                    <field name="desc" attrs="{'readonly': [('state','!=','nfs')]}" />
+                                    <field name="desc_count"/>
+                                    <field name="room"/>
+                                    <field name="lasqm"/>
+                                    <field name="fasc"/>
+                                    <field name="garg"/>
+                                    <field name="gard"/>
+                                    <field name="gasqm"/>
+                                    <field name="tasqm"/>
+                                </group>
+                            </page>
+                            <page string="Offers">
+                                    <field name="buy">
+                                        <tree>
+                                            <field name="offer"/>
+                                            <field name="buy_name"/>
+                                            <field name="state"/>
+                                            <!-- <field name="main_state"/> -->
+                                            <button name="action_accept" string="Accept" states="Negotiating,Refused" type="object" class="btn btn-info"/>
+                                            <!-- attrs="{'invisible': [('main_state','=','sold')]}"/> -->
+                                        </tree>
+                                        <form>
+                                            <sheet>
+                                                <group>
+                                                    <group>
+                                                        <field name="buy_name"/>
+                                                        <field name="offer"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="state"/>
+                                                    </group>
+                                                </group>
+                                            </sheet>
+                                        </form>
+                                    </field>
+                                    <button name="action_negotiate" string="Reconsider Offer?!" states="offer_accepted" type="object" class="btn-dark"/>
+                            </page>
+                            <page string="Other Info">
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="estate_model_kanban_view" model="ir.ui.view">
+            <field name="name">estate.model.kanban.view</field>
+            <field name="model">estate.model</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="title"/>
+                    <field name="ptype"/>
+                    <field name="pcode"/>
+                    <field name="room"/>
+                    <field name="lasqm"/>
+                    <field name="exp"/>
+                    <field name="sp"/>
+                    <templates>
+                        <t t-name='kanban-box'>
+                            <div t-attf-class="oe_kanban_global_click">
+                                <ul>
+                                    <li> Name: <field name="title"/> </li>
+                                    <li> Rooms: <field name="room"/> </li>
+                                </ul>
+                            </div>
+                        </t>
+
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="estate_model_tree_view" model="ir.ui.view">
+            <field name="name">estate.model.tree.view</field>
+            <field name="model">estate.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="title"/>
+                    <field name="ptype"/>
+                    <field name="pcode"/>
+                    <field name="room"/>
+                    <field name="lasqm"/>
+                    <field name="exp"/>
+                    <field name="sp"/>
+                    <!--field name="image"/>
+                    <field name="address"/>
+                    <field name="description"/-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="estate_offers_tree_view" model="ir.ui.view">
+            <field name="name">estate.offers.tree.view</field>
+            <field name="model">estate.offers</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id"/>
+                    <field name="buy_name"/>
+                    <field name="offer"/>
+                    <field name="state"/>
+                    <field name="buy_fetch" string="Property Name"/>
+                    <field name="prop_id" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="estate_model_sub_tree_view" model="ir.ui.view">
+            <field name="name">estate.model.sub.tree.view</field>
+            <field name="model">estate.model.sub</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="cost"/>
+                    <field name="type"/>
+                    <field name="intro"/>
+                </tree>
+            </field>
+
+        </record>
+
+        <record id="estate_model_sub_kanban_view" model="ir.ui.view">
+            <field name="name">estate.model.sub.kanban.view</field>
+            <field name="model">estate.model.sub</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="cost"/>
+                    <field name="type"/>
+                    <templates>
+                        <t t-name='kanban-box'>
+                            <div t-attf-class="oe_kanban_global_click">
+                                <ul>
+                                    <li> Name: <field name="name"/> </li>
+                                    <li> Cost: <field name="cost"/> </li>
+                                    <li> Type: <field name="type"/> </li>
+                                    <li> Intro: <field name="intro"/> </li>
+                                </ul>
+                            </div>
+                        </t>
+
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="estate_model_desc_tree_view" model="ir.ui.view">
+            <field name="name">estate.model.desc.tree.view</field>
+            <field name="model">estate.model.desc</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+
+        </record>
+
+        <record id="estate_model_search_view" model="ir.ui.view">
+            <field name="name">estate.model.search.view</field>
+            <field name="model">estate.model</field>
+            <field name="arch" type="xml">
+                <search>
+                    <!-- Text Search -->
+                    <field name="ptype"/>
+                    <field name="pcode"/>
+                    <!--field name="gender"/>
+                    <field name="address"/>
+                    <field name="description"/-->
+
+                    <!-- Filters -->
+                    <filter string="Condo" name="ptype_h" domain="[('ptype','=','Condo')]"/>
+                    <filter string="Apartment" name="pytpe_a" domain="[('ptype','=','Apartment')]"/>
+                    
+                </search>
+            </field>
+        </record>
+
+        <record id="action_estate_model" model="ir.actions.act_window">
+            <field name="name">Real Estate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">estate.model</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <record id="action_estate_offers" model="ir.actions.act_window">
+            <field name="name">Real Estate Offers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">estate.offers</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_estate_model_sub" model="ir.actions.act_window">
+            <field name="name">Real Estate Submenu</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">estate.model.sub</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <record id="action_estate_model_desc" model="ir.actions.act_window">
+            <field name="name">Description</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">estate.model.desc</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="estate_model_home" name="Estate Model Homepage"/>
+            <menuitem id="estate_homepage" parent="estate_model_home" action="action_estate_model" name="Real Estate" sequence="1"/>
+            <menuitem id="estate_model_desc" parent="estate_model_home" action="action_estate_model_desc" name="Property Description" sequence="2"/>
+            
+            <menuitem id="estate_model_sub" parent="estate_model_home" action="action_estate_model_sub" name="Propety Cost"/>
+            <menuitem id="estate_model_offers" parent="estate_model_home" action="action_estate_offers" name="Propety offers"/>
+    </data>
+</odoo>
